@@ -1,6 +1,6 @@
 <h1>esx_scoreboard with jobs online and rp info</h1>
 
-<h2>Requirments</h2>
+<h2>Requirements</h2>
 <ul>
   <li>essentialmode</li>
   <li>es_extended</li>
