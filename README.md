@@ -30,7 +30,7 @@
   <li>LifeGoal, Design</li>
   <li>Hawaii, <a href="https://forum.fivem.net/t/release-esx-scoreboard/192860">Re-wrote the resource</a></li>
   <li>SuomiPelaajaa and Nidelix, Edited and finished the script</li>
-  <li>Nidelix, Re-designed</li>
+  <li>Nidelix, Re-design</li>
 </ul>
 
 <h2>License</h2>
