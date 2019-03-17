@@ -1,5 +1,12 @@
 <h1>esx_scoreboard with jobs online and rp info</h1>
 
+<h2>Requirments</h2>
+<ul>
+  <li>essentialmode</li>
+  <li>es_extended</li>
+  <li>Brains</li>
+</ul>
+
 <h2>Features</h2>
 <ul>
   <li>Press PageUp to open scoreboard</li>
@@ -11,7 +18,6 @@
 
 <h2>Installation</h2>
 <ul>
-  <li>Requires ESX</li>
   <li>Put esx_scoreboard folder into resources/[esx] folder</li>
   <li>Remove "start scoreboard" from your server.cfg file</li>
   <li>Add "start esx_scoreboard" into your server.cfg file</li>
