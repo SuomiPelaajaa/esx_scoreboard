@@ -9,7 +9,17 @@ ESX.RegisterServerCallback('esx_scoreboard:getConnectedPlayers', function(source
 end)
 
 AddEventHandler('esx:setJob', function(playerId, job, lastJob)
-	connectedPlayers[playerId].job = job.label
+	connectedPlayers[playerId].job = job.name
+	connectedPlayers[playerId].jobLabel = job.label
+	
+	local xPlayer = ESX.GetPlayerFromId(playerId)
+	
+	if xPlayer.player.getGroup() == 'user' then
+		Citizen.CreateThread(function()
+			TriggerClientEvent('esx_scoreboard:toggleID', playerId, false)
+		end)
+	end
+	
 	TriggerClientEvent('esx_scoreboard:updateConnectedPlayers', -1, connectedPlayers)
 end)
 
@@ -79,8 +89,13 @@ end
 function UpdatePing()
 	for k,v in pairs(connectedPlayers) do
 		v.ping = GetPlayerPing(k)
-
+		
 		local xPlayer = ESX.GetPlayerFromId(k)
+		
+		if v.name == " " then
+			AddPlayerToScoreboard(xPlayer, true)
+		end
+		
 		if xPlayer.player.getGroup() == 'user' then
 			Citizen.CreateThread(function()
 				TriggerClientEvent('esx_scoreboard:toggleID', k, false)
