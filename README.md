@@ -2,26 +2,27 @@
 
 <h2>Features</h2>
 <ul>
-  <li>Open scoreboard by pageup</li>
-  <li>Toggle ID's for admin and superadmin by command /sctoggle true or false</li>
-  <li>Jobs Online (ambulance, police, sheriff, taxi, mecano, cardealer and realestateagent) fully editable</li>
+  <li>Press PageUp to open scoreboard</li>
+  <li>Toggle ID's for admin and superadmin on command /sctoggle true or false</li>
+  <li>Jobs Online (ambulance, police, sheriff, taxi, mecano, cardealer and realestateagent) is fully editable</li>
   <li>Roleplayer name, ID (admin and superadmin), job, phone number and ping</li>
-  <li>/screfresh command if something does not work on scoreboard</li>
+  <li>/screfresh (superadmin) command if something does not work on scoreboard</li>
 </ul>
 
 <h2>Installation</h2>
 <ul>
   <li>Requires ESX</li>
-  <li>Put esx_scoreboard folder in resources/[esx] folder</li>
-  <li>Add start esx_scoreboard in to your server.cfg</li>
+  <li>Put esx_scoreboard folder into resources/[esx] folder</li>
+  <li>Remove "start scoreboard" from your server.cfg file</li>
+  <li>Add "start esx_scoreboard" into your server.cfg file</li>
   <li>Enjoy!</li>
 </ul>
 
 <h2>Credits</h2>
 <ul>
-  <li>Stadus, original resource</li>
+  <li>Stadus, <a href="https://forum.fivem.net/t/release-esx-custom-scoreboard-with-jobs-online/84767">original resource</a></li>
   <li>LifeGoal, design</li>
-  <li>Hawaii, re-wrote the resource</li>
+  <li>Hawaii, <a href="https://forum.fivem.net/t/release-esx-scoreboard/192860">re-wrote the resource</a></li>
 </ul>
 
 <h2>License</h2>
