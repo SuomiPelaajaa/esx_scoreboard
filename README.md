@@ -26,9 +26,9 @@
 
 <h2>Credits</h2>
 <ul>
-  <li>Stadus, <a href="https://forum.fivem.net/t/release-esx-custom-scoreboard-with-jobs-online/84767">original resource</a></li>
-  <li>LifeGoal, design</li>
-  <li>Hawaii, <a href="https://forum.fivem.net/t/release-esx-scoreboard/192860">re-wrote the resource</a></li>
+  <li>Stadus, <a href="https://forum.fivem.net/t/release-esx-custom-scoreboard-with-jobs-online/84767">Original resource</a></li>
+  <li>Hawaii, <a href="https://forum.fivem.net/t/release-esx-scoreboard/192860">Re-wrote the resource</a></li>
+  <li>Nidelix, Design</li>
 </ul>
 
 <h2>License</h2>
