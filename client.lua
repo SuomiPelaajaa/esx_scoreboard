@@ -9,8 +9,8 @@ local Keys = {
 	["LEFT"] = 174, ["RIGHT"] = 175, ["TOP"] = 27, ["DOWN"] = 173,
 	["NENTER"] = 201, ["N4"] = 108, ["N5"] = 60, ["N6"] = 107, ["N+"] = 96, ["N-"] = 97, ["N7"] = 117, ["N8"] = 61, ["N9"] = 118
 }
-
 local idVisable = nil
+local jobVisable = nil
 ESX = nil
 
 Citizen.CreateThread(function()
@@ -29,8 +29,7 @@ Citizen.CreateThread(function()
 	Citizen.Wait(500)
 	SendNUIMessage({
 		action = 'updateServerInfo',
-
-		maxPlayers = 32
+		maxPlayers = Config.MaxPlayers
 	})
 end)
 
@@ -50,7 +49,7 @@ end)
 RegisterNetEvent('esx_scoreboard:toggleID')
 AddEventHandler('esx_scoreboard:toggleID', function(state)
 	if state == 'true' then
-		idVisable = state
+		idVisable = true
 	elseif state == 'false' then
 		idVisable = false
 	else
@@ -62,12 +61,27 @@ AddEventHandler('esx_scoreboard:toggleID', function(state)
 	})
 end)
 
+RegisterNetEvent('esx_scoreboard:toggleJob')
+AddEventHandler('esx_scoreboard:toggleJob', function(state)
+	if state == 'true' then
+		jobVisable = true
+	elseif state == 'false' then
+		jobVisable = false
+	else
+		jobVisable = false
+	end
+	SendNUIMessage({
+		action = 'toggleJob',
+		state = jobVisable
+	})
+end)
+
 function UpdatePlayerTable(connectedPlayers)
 	local formattedPlayerList = {}
 	local ems, police, sheriff, taxi, mechanic, cardealer, estate, players = 0, 0, 0, 0, 0, 0, 0, 0
 
 	for k,v in pairs(connectedPlayers) do
-		table.insert(formattedPlayerList, ('<tr><td>%s</td><td class="pid">%s</td><td>%s</td><td>%s</td><td>%s</td></tr>'):format(v.name, v.id, v.jobLabel, v.phone, v.ping))
+		table.insert(formattedPlayerList, ('<tr><td>%s</td><td class="pid">%s</td><td class="sjob">%s</td><td>%s</td><td class="ping">%s</td></tr>'):format(v.name, v.id, v.jobLabel, v.phone, v.ping))
 		players = players + 1
 
 		if v.job == 'ambulance' then
@@ -86,7 +100,7 @@ function UpdatePlayerTable(connectedPlayers)
 			estate = estate + 1
 		end
 	end
-
+	
 	SendNUIMessage({
 		action  = 'updatePlayerList',
 		players = table.concat(formattedPlayerList)
@@ -95,6 +109,16 @@ function UpdatePlayerTable(connectedPlayers)
 	SendNUIMessage({
 		action = 'updatePlayerJobs',
 		jobs   = {ems = ems, police = police, sheriff = sheriff, taxi = taxi, mechanic = mechanic, cardealer = cardealer, estate = estate, player_count = players}
+	})
+	
+	SendNUIMessage({
+		action = 'toggleID',
+		state = idVisable
+	})
+	
+	SendNUIMessage({
+		action  = 'toggleJob',
+		state = jobVisable
 	})
 end
 
@@ -107,6 +131,18 @@ Citizen.CreateThread(function()
 		elseif IsControlJustReleased(0, Keys['PAGEUP']) then
 			SendNUIMessage({
 				action  = 'close'
+			})
+		end
+		
+		if IsControlJustPressed(0, 172) then
+			SendNUIMessage({
+				action  = 'scroll',
+				scroll = "up"
+			})
+		elseif IsControlJustPressed(0, 173) then
+			SendNUIMessage({
+				action  = 'scroll',
+				scroll = "down"
 			})
 		end
 	end

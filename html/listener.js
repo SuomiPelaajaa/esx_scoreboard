@@ -20,15 +20,33 @@ $(function () {
 				break;
 
 			case 'toggleID':
-				if (event.data.state) {
-					$('th:nth-child(2)').show();
-					$('td:nth-child(2)').show();
+				if (event.data.state == true) {
+					$('.sid').show();
+					$('.pid').show();
 				} else {
-					$('th:nth-child(2)').hide();
-					$('td:nth-child(2)').hide();
+					$('.sid').hide();
+					$('.pid').hide();
 				}
 				break;
 
+			case 'toggleJob':
+				if(event.data.state == true) {
+					$('.sjob').show();
+				} else {
+					$('.sjob').hide();
+				}
+				break;
+				
+			case 'scroll':
+				if(event.data.scroll == "up") {
+					var pos = $("#playerwrapper").scrollTop()
+					$("#playerwrapper").scrollTop(pos - 140);
+				} else if(event.data.scroll == "down") {
+					var pos = $("#playerwrapper").scrollTop()
+					$("#playerwrapper").scrollTop(pos + 140);
+				}
+				break;
+			
 			case 'updatePlayerJobs':
 				var jobs = event.data.jobs;
 				$('#player_count').html(jobs.player_count);
@@ -42,8 +60,8 @@ $(function () {
 				break;
 
 			case 'updatePlayerList':
-				$('#playerlist tr:gt(0)').remove();
-				$('#playerlist').append(event.data.players);
+				$('#playerwrapper').empty();
+				$('#playerwrapper').append(event.data.players);
 				applyPingColor();
 				sortPlayerList();
 				break;
@@ -68,7 +86,7 @@ $(function () {
 
 function applyPingColor() {
 	$('#playerlist tr').each(function () {
-		$(this).find('td:nth-child(5)').each(function () {
+		$(this).find('.ping').each(function () {
 			var ping = $(this).html();
 			var color = '#00e68a';
 
@@ -89,8 +107,8 @@ function updatePing(players) {
 	jQuery.each(players, function (i, v) {
 		if (v != null) {
 			$('#playerlist tr:not(.heading)').each(function () {
-				$(this).find('td:nth-child(2):contains(' + v.id + ')').each(function () {
-					$(this).parent().find('td').eq(4).html(v.ping);
+				$(this).find('.pid:contains(' + v.id + ')').each(function () {
+					$(this).parent().find('.ping').html(v.ping);
 				});
 			});
 		}

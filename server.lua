@@ -12,14 +12,6 @@ AddEventHandler('esx:setJob', function(playerId, job, lastJob)
 	connectedPlayers[playerId].job = job.name
 	connectedPlayers[playerId].jobLabel = job.label
 	
-	local xPlayer = ESX.GetPlayerFromId(playerId)
-	
-	if xPlayer.player.getGroup() == 'user' then
-		Citizen.CreateThread(function()
-			TriggerClientEvent('esx_scoreboard:toggleID', playerId, false)
-		end)
-	end
-	
 	TriggerClientEvent('esx_scoreboard:updateConnectedPlayers', -1, connectedPlayers)
 end)
 
@@ -54,9 +46,9 @@ function AddPlayerToScoreboard(xPlayer, update)
 	local identifier = GetPlayerIdentifiers(playerId)[1]
 	local result = MySQL.Sync.fetchAll("SELECT * FROM users WHERE identifier = @identifier", { ['@identifier'] = identifier })
 	
-	local firstname     = result[1].firstname
-	local lastname      = result[1].lastname
-	local phone			= result[1].phone_number
+	local firstname = result[1].firstname
+	local lastname = result[1].lastname
+	local phone	= result[1].phone_number
 	
 	connectedPlayers[playerId] = {}
 	connectedPlayers[playerId].ping = GetPlayerPing(playerId)
@@ -69,10 +61,16 @@ function AddPlayerToScoreboard(xPlayer, update)
 	if update then
 		TriggerClientEvent('esx_scoreboard:updateConnectedPlayers', -1, connectedPlayers)
 	end
-
+	
 	if xPlayer.player.getGroup() == 'user' then
 		Citizen.CreateThread(function()
-			TriggerClientEvent('esx_scoreboard:toggleID', playerId, false)
+			TriggerClientEvent('esx_scoreboard:toggleID', playerId, tostring(Config.UserVisibleID))
+		end)
+	end
+	
+	if xPlayer.player.getGroup() == 'user' then
+		Citizen.CreateThread(function()
+			TriggerClientEvent('esx_scoreboard:toggleJob', playerId, tostring(Config.ShowJobs))
 		end)
 	end
 end
@@ -98,7 +96,13 @@ function UpdatePing()
 		
 		if xPlayer.player.getGroup() == 'user' then
 			Citizen.CreateThread(function()
-				TriggerClientEvent('esx_scoreboard:toggleID', k, false)
+				TriggerClientEvent('esx_scoreboard:toggleID', k, tostring(Config.UserVisibleID))
+			end)
+		end
+		
+		if xPlayer.player.getGroup() == 'user' then
+			Citizen.CreateThread(function()
+				TriggerClientEvent('esx_scoreboard:toggleJob', k, tostring(Config.ShowJobs))
 			end)
 		end
 		
@@ -110,6 +114,10 @@ TriggerEvent('es:addGroupCommand', 'screfresh', 'superadmin', function(source, a
 	AddPlayersToScoreboard()
 end)
 
-TriggerEvent('es:addGroupCommand', 'sctoggle', 'admin', function(source, args, user)
+TriggerEvent('es:addGroupCommand', 'scid', 'admin', function(source, args, user)
 	TriggerClientEvent('esx_scoreboard:toggleID', source, args[1])
+end)
+
+TriggerEvent('es:addGroupCommand', 'scjob', 'admin', function(source, args, user)
+	TriggerClientEvent('esx_scoreboard:toggleJob', source, args[1])
 end)

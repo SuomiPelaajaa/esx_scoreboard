@@ -9,10 +9,13 @@
 
 <h2>Features</h2>
 <ul>
+  <li>Roleplayer name, ID, job, phone number and ping</li>
+  <li>Show or hide ID and/or job for users</li>
   <li>Press PageUp to open scoreboard</li>
-  <li>Toggle ID's for admin and superadmin on command /sctoggle true or false</li>
+  <li>Arrow up and arrow down for scrolling scoreboard</li>
+  <li>Toggle ID's for admin and superadmin on command /scid true or false</li>
+  <li>Toggle Jobs for admin and superadmin on command /scjob true or false</li>
   <li>Jobs Online (ambulance, police, sheriff, taxi, mecano, cardealer and realestateagent) is fully editable</li>
-  <li>Roleplayer name, ID (admin and superadmin), job, phone number and ping</li>
   <li>/screfresh (superadmin) command if something does not work on scoreboard</li>
 </ul>
 
